@@ -1,0 +1,48 @@
+#ifndef GENERATOR_
+#define GENERATOR_
+
+template <typename T>
+class generator{
+private:
+	// biezacy element ciagu
+	T biezacy;
+	// funkcja inkrementujaca
+	T (*funkcja)(T);
+
+public:
+	// ustawia poczatkowy element ciagu i funkcje inkrementujaca
+	generator(T b, T (*f)(T)){
+		biezacy = b;
+		funkcja = f;
+	}
+	// zwraca biezacy element ciagu
+	T current(){
+		return biezacy;
+	}
+	// przechodzi to kolejnego elementu ciagu
+	void operator++(){
+		biezacy = funkcja(biezacy);
+	}
+	// pozwala ustawic poczatkowy element ciagu i funkcje inkrementujaca
+	void reset(T b, T (*f)(T)){
+		biezacy = b;
+		funkcja = f;
+	}
+	// porownuje biezacy element ciagu z przekazanym argumentem
+	bool operator>(T n){
+		return biezacy > n;
+	}
+	// porownuje biezacy element ciagu z przekazanym argumentem
+	bool operator<(T n){
+		return biezacy < n;
+	}
+	// zwracaa kolejny element ciagu
+	T next(){
+		return biezacy = funkcja(biezacy);
+	}
+	// pozwala na ustawienie pierwszego elementu na 'a'
+	void reset(){
+		biezacy = 'a';
+	}
+};
+#endif
